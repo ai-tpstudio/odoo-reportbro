@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<t t-name="pdf.print">
+    <iframe
+            id="pdf_print_iframe"
+            class="o_pdfview_iframe"
+            src="about:blank" t-ref="pdf_preview" marginheight="0" marginwidth="0"></iframe>
+</t>
+

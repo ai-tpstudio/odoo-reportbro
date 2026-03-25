@@ -1,0 +1,126 @@
+<odoo>
+    <data>
+        
+        <record id="view_report_report_tree" model="ir.ui.view">
+            <field name="name">Report Report Tree</field>
+            <field name="model">report.report</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"></field>
+                    <field name="model_id"></field>
+                    <field name="output_format"/>
+                </list>
+            </field>
+        </record>
+        <record id="view_report_report_form" model="ir.ui.view">
+            <field name="name">Report Report Form</field>
+            <field name="model">report.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="add_print_actions" icon="fa-arrows" class="oe_stat_button" invisible="display_completes==True"
+                               string="Add Print" type="object"/>
+                            <button name="unlink_action_report" icon="fa-remove" class="oe_stat_button" invisible="display_completes==False" string="Delete Print" type="object"/>
+                        </div>
+                        <group>
+                            <group>
+                                <group>
+                                <field name="display_complete" invisible="1"/>
+                                <field name="display_completes" invisible="1"/>
+                                <field name="name" readonly="display_completes==True"/>
+                                <field name="model_main_key"/>
+                                <field name="report_type" readonly="display_completes==True"/>
+                                    </group>
+                                <newline/>
+                                <group>
+                                    <div style="display: grid; grid-template-columns: 4fr 1fr;">
+                                        <group>
+                                           <field name="output_format" readonly="display_completes==True"/>
+                                        </group>
+                                    <widget name="tpstudio_file_upload" invisible="not (name and not(display_completes))"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="model_id" readonly="1"/>
+                                <field name="model_detail_id" domain="[('id','in',available_detail_model_ids)]" readonly="1"/>
+                                <field name="group_field"/>
+                            </group>
+
+                        </group>
+                        <notebook>
+                            <page string="Main Model Fields">
+                                <field name="model_ids" widget="one2many" context="{'default_model_id':model_id}">
+                                    <list string="Report Line" editable="bottom">
+                                        <field name="model_id" column_invisible="True"/>
+                                        <field name="field_domain" column_invisible="True"/>
+                                        <field name="field_id" domain="[('id', 'in', field_domain)]"  options="{'no_create': True,'no_edit': True}"/>
+                                        <field name="field_description" column_invisible="True"/>
+                                        <field name="field_params"/>
+                                        <field name="field_value"/>
+                                        <field name="ttype"/>
+                                        <field name="is_report" widget="boolean_toggle"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Detail field">
+                                <field name="model_detail_ids" widget="one2many"
+                                       context="{'default_model_id':model_detail_id}">
+                                    <list string="Report Line" editable="bottom">
+                                        <field name="model_id" column_invisible="True"/>
+                                        <field name="field_domain" column_invisible="True"/>
+                                        <field name="field_id" domain="[('id', 'in', field_domain)]" options="{'no_create': True,'no_edit': True}"/>
+                                        <field name="field_description" column_invisible="True"/>
+                                        <field name="field_params"/>
+                                        <field name="field_value"/>
+                                        <field name="ttype"/>
+                                        <field name="is_report" widget="boolean_toggle"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="帮助">
+                                <p>这是个基础的打印系统，没有把模板设计接口集成进来，需要把设计好的布局导入才能使用:</p>
+                                <p>适用动手能力不强的客户使用，直接一步到胃；</p>
+                                <p>随模块一起附送有3套布局模板文件和相关的字体文件；</p>
+                                <p>填写好<b style="color:red">报表名称</b>后，使用上方的按钮 <button class="btn btn-sm btn-outline-primary ml-1">
+                        <i class="fa fa-upload" aria-hidden="true"></i></button> 来上传导入，</p>
+                                <p><b style="color:red">字体文件也需要上传</b>，在字体管理中上传；</p>
+                                <p>如果要重新上传模板文件，请先删除打印<button  icon="fa-remove" class="btn btn-sm btn-outline-primary ml-1"  string="Delete Print"/>，再上传；</p>
+                                <p>每个模板文件都对应一个模型，按照原odoo系统的原有字段设置，如果报错一定是相关模块没有启用，常见的比如计量单位；</p>
+                                <p>使用上有疑问，请微信联系<i class="fa fa-arrow-down" aria-hidden="true" style="color:red;font-size:15pt;"></i></p>
+                                <img src="/tpstudio_report_system/static/description/wxqrcode.png" style="max-height:250pt;"  alt="WXQrcode"/>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_report_designer" model="ir.actions.act_window">
+            <field name="name">Report Designer</field>
+            <field name="res_model">report.report</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="tpstudio_report_system_menu_root" name="Report system"  web_icon="tpstudio_report_system,static/description/icon02.png"/>
+        <menuitem id="tpstudio_report_system_menu_report_designer" action="action_report_designer"
+                  parent="tpstudio_report_system_menu_root"/>
+
+        <record id="report_temp_form" model="ir.ui.view">
+            <field name="name">report_temp</field>
+            <field name="model">report.temp</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="name" widget="pdf_print" class="pdf_print_main" readonly="1"/>
+                    <footer reaplace="0">
+                        <button string="close" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

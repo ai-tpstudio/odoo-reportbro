@@ -1,0 +1,11 @@
+.pdf_print_main{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden !important;
+}
+
+.pdf_print_main .o_pdfview_iframe{
+    width: 100%;
+    height: 700px;
+}

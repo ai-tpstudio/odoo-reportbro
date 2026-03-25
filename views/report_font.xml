@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="report_font_act_window" model="ir.actions.act_window">
+        <field name="name">report font</field>
+        <field name="res_model">report.font</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="report_font_tree_view" model="ir.ui.view">
+        <field name="name">字体</field>
+        <field name="model">report.font</field>
+        <field name="arch" type="xml">
+            <list>
+                <field
+                        name="file_path"
+                    />
+                <field name="file_size" readonly="1"/>
+                <field name="is_default"/>
+                <field name="used_in_report_ids"
+                   widget="many2many_tags"
+                   optional="show"/>
+            </list>
+
+        </field>
+    </record>
+
+    <record id="report_font_form_view" model="ir.ui.view">
+        <field name="name">字体</field>
+        <field name="model">report.font</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                    <h2>
+                        <field name="name" readonly="1"/>
+                    </h2>
+                    <group>
+                        <div style="display: grid; grid-template-columns: 1fr auto 1fr 2fr;">
+                        <group><field
+                                name="file_path"
+                                widget="custom_binary"
+                                filename="file_name"
+                                options="{'accepted_file_extensions': '.ttf,.otf,.ttc'}"
+                            /></group>
+
+                        <newline/>
+                        <group><field name="file_size" readonly="1"/></group>
+                        <group><field name="file_size" invisible="1"/>
+                         <field name="is_default"/></group>
+                        </div>
+                    </group>
+                    <widget name="font_preview" record="record"/>
+
+                        <field name="name" invisible="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <menuitem id="report_font_menu_action"
+              sequence="50"
+              parent="tpstudio_report_system_menu_root"
+              name="font management"
+              action="report_font_act_window"/>
+
+</odoo>
+
