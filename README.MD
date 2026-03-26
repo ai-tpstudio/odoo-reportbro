@@ -20,13 +20,7 @@ TPStudio Report System 是一个强大的 Odoo 报表生成系统，基于Report
 - Python 3.10+
 - ReportBro 库（用于 PDF 生成）
 
-### 安装步骤
+## 效果：
 
-```bash
-# 1. 克隆或复制模块到 addons 目录
-cp -r tpstudio_report_system /path/to/odoo/addons/
-
-# 2. 更新应用列表
-./odoo-bin -u all --stop-after-init
-
-# 3. 在 Odoo 后台安装
+![sale](static/description/sale.png)
+![purchase](static/description/purchase.png)
