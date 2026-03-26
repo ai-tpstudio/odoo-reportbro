@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_report_data_processor,report.data.processor,model_report_data_processor,,1,1,1,1
+access_report_temp,report.temp,model_report_temp,,1,1,1,1
+access_report_report,report.report,model_report_report,,1,1,1,1
+access_report_report_main,report.report.main,model_report_report_main,,1,1,1,1
+access_report_report_detail,report.report.detail,model_report_report_detail,,1,1,1,1
+access_report_font_user,report.font.user,model_report_font,base.group_user,1,1,1,1
+
+
+
+
+
+
+
