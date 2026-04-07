@@ -20,7 +20,11 @@ TPStudio Report System 是一个强大的 Odoo 报表生成系统，基于Report
 - Python 3.10+
 - ReportBro 库（用于 PDF 生成）
 
-## 效果：
+## 打印模板设计界面
+![design](static/description/design.png)
+
+
+## 生成pdf效果：
 
 ![sale](static/description/sale.png)
 ![purchase](static/description/purchase.png)
