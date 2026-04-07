@@ -137,7 +137,6 @@ class ReportPrintMixin(models.AbstractModel):
 			if res:
 				generated_keys = res
 			self.env.cr.commit()
-			print(f"\n{generated_keys}\n")
 
 			if len(generated_keys) > 1:
 				all_records = self.env['report.temp'].sudo().search([
