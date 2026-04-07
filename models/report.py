@@ -571,51 +571,6 @@ class ReportReport(models.Model):
 		self.write({'display_completes': True,'action_report_id': action_report_record.id, })
 		self._update_fonts_usage()
 
-	def _format_time_field(self, field_value, field_type):
-		if field_value == 'False':
-			return ''
-		if field_type in ['datetime']:
-			if field_type == 'datetime':
-				clean_str = str(field_value).split('.')[0][:19]
-				return clean_str
-		elif field_type in ['html']:
-			if field_type == 'html':
-				if field_value == 'False':
-					return ''
-				clean_str =  html2text.html2text(field_value)
-				return clean_str
-		elif field_type in ['boolean']:
-			if field_value:
-				re_str= "Yes"
-			else:
-				re_str= "No"
-			return re_str
-		else:
-			return str(field_value)
-
-	def _format_image_field(self, field_value, field_type):
-		if field_type != 'binary':
-			return field_value
-
-		if not field_value:
-			return ""
-
-		if isinstance(field_value, bytes):
-			image_base64 = field_value.decode('utf-8')
-		else:
-			image_base64 = field_value
-
-		try:
-			image_bytes = base64.b64decode(image_base64)
-
-			img = Image.open(io.BytesIO(image_bytes))
-			image_type = img.format.lower()
-
-			data_url = f"data:image/{image_type};base64,{image_base64}"
-			return data_url
-
-		except Exception as e:
-			return ""
 
 	def unlink(self):
 		for report in self:
